@@ -1,0 +1,24 @@
+# ---- HBuilderX 编译产物（可随时重新生成，不入库）----
+unpackage/
+
+# ---- 依赖 ----
+node_modules/
+
+# ---- 日志 ----
+*.log
+
+# ---- 微信开发者工具的本地私有配置（各人机器自动生成）----
+project.private.config.json
+
+# ---- 编辑器 / IDE ----
+.hbuilderx/
+.vscode/
+.idea/
+
+# ---- 智能体工作目录（记忆、临时脚本、图片备份）----
+.workbuddy/
+
+# ---- 系统文件 ----
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,36 @@
+{
+  "bsonType": "object",
+  "required": ["name", "type", "bookable"],
+  "permission": {
+    "read": true,
+    "create": "'ADMIN' in auth.role",
+    "update": "'ADMIN' in auth.role",
+    "delete": "'ADMIN' in auth.role"
+  },
+  "properties": {
+    "_id": { "description": "ID" },
+    "name": {
+      "bsonType": "string",
+      "description": "房间名称",
+      "enum": ["办公室", "会议室1", "会议室2", "会议室3", "董事长室"]
+    },
+    "type": {
+      "bsonType": "string",
+      "description": "房间类型",
+      "enum": ["office", "meeting", "boardroom"]
+    },
+    "bookable": {
+      "bsonType": "bool",
+      "description": "是否可预定"
+    },
+    "position": {
+      "bsonType": "string",
+      "description": "布局位置",
+      "enum": ["top-left", "top-center", "top-right", "bottom-left", "bottom-right"]
+    },
+    "sort": {
+      "bsonType": "number",
+      "description": "排序"
+    }
+  }
+}

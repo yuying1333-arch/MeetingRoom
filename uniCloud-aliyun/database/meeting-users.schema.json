@@ -1,0 +1,40 @@
+{
+  "bsonType": "object",
+  "required": ["username"],
+  "permission": {
+    "read": true,
+    "create": "'ADMIN' in auth.role",
+    "update": "'ADMIN' in auth.role",
+    "delete": "'ADMIN' in auth.role"
+  },
+  "properties": {
+    "_id": { "description": "ID" },
+    "username": {
+      "bsonType": "string",
+      "description": "用户名（登录账号）",
+      "trim": "both"
+    },
+    "password": {
+      "bsonType": "string",
+      "description": "密码"
+    },
+    "nickname": {
+      "bsonType": "string",
+      "description": "显示名称"
+    },
+    "role": {
+      "bsonType": "string",
+      "description": "角色",
+      "enum": ["user", "admin"],
+      "defaultValue": "user"
+    },
+    "openid": {
+      "bsonType": "string",
+      "description": "微信 openId（用于订阅消息推送）"
+    },
+    "created_at": {
+      "bsonType": "timestamp",
+      "description": "创建时间"
+    }
+  }
+}

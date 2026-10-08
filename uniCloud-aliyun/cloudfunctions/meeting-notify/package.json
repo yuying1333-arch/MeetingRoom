@@ -1,0 +1,19 @@
+{
+  "name": "meeting-notify",
+  "version": "1.0.0",
+  "description": "会议室提醒云函数（定时触发器）",
+  "main": "index.js",
+  "dependencies": {},
+  "cloudfunction-config": {
+    "concurrency": 1,
+    "memorySize": 256,
+    "timeout": 60,
+    "triggers": [
+      {
+        "name": "meeting-notify-trigger",
+        "type": "timer",
+        "config": "0 */1 * * * * *"
+      }
+    ]
+  }
+}

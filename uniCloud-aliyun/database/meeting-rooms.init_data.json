@@ -1,0 +1,44 @@
+{
+  "rooms": [
+    {
+      "_id": "room_office",
+      "name": "办公室",
+      "type": "office",
+      "bookable": false,
+      "position": "top-left",
+      "sort": 1
+    },
+    {
+      "_id": "room_meeting1",
+      "name": "会议室1",
+      "type": "meeting",
+      "bookable": true,
+      "position": "top-center",
+      "sort": 2
+    },
+    {
+      "_id": "room_meeting2",
+      "name": "会议室2",
+      "type": "meeting",
+      "bookable": true,
+      "position": "top-right",
+      "sort": 3
+    },
+    {
+      "_id": "room_meeting3",
+      "name": "会议室3",
+      "type": "meeting",
+      "bookable": true,
+      "position": "bottom-left",
+      "sort": 4
+    },
+    {
+      "_id": "room_boardroom",
+      "name": "董事长室",
+      "type": "boardroom",
+      "bookable": true,
+      "position": "bottom-right",
+      "sort": 5
+    }
+  ]
+}

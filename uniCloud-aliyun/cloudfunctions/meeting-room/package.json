@@ -1,0 +1,7 @@
+{
+  "name": "meeting-room",
+  "version": "1.0.0",
+  "description": "会议室预定云对象",
+  "main": "index.obj.js",
+  "dependencies": {}
+}
