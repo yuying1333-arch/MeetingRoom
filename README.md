@@ -43,8 +43,12 @@
 | 3 | 微信小程序 **开发**编译（微信开发者工具预览用） | `unpackage/dist/dev/mp-weixin` |
 | 4 | H5 开发模式运行（热更新） | 由 HBuilderX 内置服务托管 |
 
-> 部署到公网服务器时，用 Nginx 托管 `unpackage/dist/build/web` 即可；
+> 部署到公网服务器时，用 Nginx 托管 `unpackage/dist/build/web` 即可（也可使用 uniCloud 前端网页托管）；
 > 默认静态服务端口为 8080，可在脚本顶部 `set "PORT=8080"` 修改。
+>
+> ⚠️ **H5 端调用 uniCloud 需要先在 [uniCloud 控制台](https://unicloud.dcloud.net.cn) 为本服务空间绑定「安全域名」**，
+> 否则浏览器会因跨域无法访问云对象（小程序端不受此限制）。参考：
+> <https://uniapp.dcloud.net.cn/uniCloud/publish.html#useinh5>
 
 ## 部署须知（微信小程序）
 
