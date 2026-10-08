@@ -10,6 +10,9 @@ node_modules/
 # ---- 微信开发者工具的本地私有配置（各人机器自动生成）----
 project.private.config.json
 
+# ---- 生成的访问二维码图片（每次运行脚本自动生成）----
+qrcode.png
+
 # ---- 编辑器 / IDE ----
 .hbuilderx/
 .vscode/

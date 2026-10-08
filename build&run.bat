@@ -1,23 +1,28 @@
 @echo off
-chcp 65001 >nul
 setlocal enabledelayedexpansion
-title MeetingRoom ä¸€é”®ç¼–è¯‘ä¸Žå¯åŠ¨
+title MeetingRoom Ò»¼ü±àÒëÓëÆô¶¯
 
 REM ============================================================
-REM  MeetingRoom ä¸€é”®ç¼–è¯‘ä¸Žå¯åŠ¨è„šæœ¬
-REM  ç”¨æ³•ï¼šæŠŠæœ¬æ–‡ä»¶æ”¾åœ¨é¡¹ç›®æ ¹ç›®å½•ï¼ŒåŒå‡»è¿è¡Œå³å¯ï¼ˆæˆ–åœ¨ cmd ä¸­ï¼š
-REM        "build&run.bat"  â€”â€” æ–‡ä»¶åå« & å·ï¼Œcmd é‡Œè¯·åŠ å¼•å·ï¼‰
-REM  è¯´æ˜Žï¼šéœ€è¦åœ¨æœåŠ¡å™¨/ç”µè„‘ä¸Šå®‰è£… HBuilderXï¼ˆæä¾› cli.exeï¼‰
-REM        H5 é¢„è§ˆéœ€è¦ python æˆ– nodeï¼ˆä»»ä¸€å³å¯ï¼Œè„šæœ¬è‡ªåŠ¨æŽ¢æµ‹ï¼‰
+REM  MeetingRoom Ò»¼ü±àÒëÓëÆô¶¯½Å±¾
+REM  ÓÃ·¨£º°Ñ±¾ÎÄ¼þ·ÅÔÚÏîÄ¿¸ùÄ¿Â¼£¬Ë«»÷ÔËÐÐ¼´¿É£¨»òÔÚ cmd ÖÐ£º
+REM        "build&run.bat"  ¡ª¡ª ÎÄ¼þÃûº¬ & ºÅ£¬cmd ÀïÇë¼ÓÒýºÅ£©
+REM  ËµÃ÷£ºÐèÒªÔÚ·þÎñÆ÷/µçÄÔÉÏ°²×° HBuilderX£¨Ìá¹© cli.exe£©
+REM        H5 Ô¤ÀÀÐèÒª node£¨ÍÆ¼ö£©»ò python£¨ÈÎÒ»¼´¿É£¬½Å±¾×Ô¶¯Ì½²â£©
+REM  ×¢Òâ£º±¾ÎÄ¼þ±ØÐë±£´æÎª ANSI/GBK ±àÂë + CRLF »»ÐÐ£¬·ñÔòÖÐÎÄ»áÂÒÂë
+REM        £¨ÏîÄ¿ÄÚ .workbuddy/fix-bat-encoding.py ¿É×Ô¶¯×ª»»£©
 REM ============================================================
 
 set "PROJECT_DIR=%~dp0"
 if "%PROJECT_DIR:~-1%"=="\" set "PROJECT_DIR=%PROJECT_DIR:~0,-1%"
 
-REM ---------- å¯ä¿®æ”¹é…ç½® ----------
-set "PORT=8080"
+REM ---------- ¿ÉÐÞ¸ÄÅäÖÃ ----------
+REM ¾²Ì¬·þÎñ¶Ë¿Ú
+set "PORT=8901"
+REM ¶þÎ¬ÂëÀïÊ¹ÓÃµÄµØÖ·Ö÷»úÃû¡£Áô¿Õ = ×Ô¶¯È¡±¾»ú¾ÖÓòÍø IP£»
+REM Èô·þÎñÆ÷ÓÐ¹«Íø IP »òÓòÃû£¨Èç 1.2.3.4¡¢meeting.example.com£©£¬ÌîÔÚÕâÀï
+set "PUBLIC_HOST="
+REM HBuilderX cli.exe Â·¾¶£¨Ä¬ÈÏ×Ô¶¯Ì½²â£©
 set "HBX_CLI="
-REM å·²è®¾ç½®çŽ¯å¢ƒå˜é‡ HBX_CLI æ—¶ä¼˜å…ˆä½¿ç”¨
 if defined HBX_CLI_PATH set "HBX_CLI=%HBX_CLI_PATH%"
 if not defined HBX_CLI if exist "D:\HBuilderX\cli.exe" set "HBX_CLI=D:\HBuilderX\cli.exe"
 if not defined HBX_CLI if exist "C:\Program Files\HBuilderX\cli.exe" set "HBX_CLI=C:\Program Files\HBuilderX\cli.exe"
@@ -27,9 +32,9 @@ REM --------------------------------
 
 if not defined HBX_CLI (
 	echo.
-	echo [é”™è¯¯] æœªæ‰¾åˆ° HBuilderX CLI ^(cli.exe^)ã€‚
-	echo        è¯·ç¡®è®¤å·²å®‰è£… HBuilderXï¼Œå¹¶åœ¨æœ¬è„šæœ¬é¡¶éƒ¨æ‰‹åŠ¨æŒ‡å®šè·¯å¾„ï¼Œ
-	echo        æˆ–è®¾ç½®çŽ¯å¢ƒå˜é‡ HBX_CLI_PATH æŒ‡å‘ cli.exeã€‚
+	echo [´íÎó] Î´ÕÒµ½ HBuilderX CLI ^(cli.exe^)¡£
+	echo        ÇëÈ·ÈÏÒÑ°²×° HBuilderX£¬²¢ÔÚ±¾½Å±¾¶¥²¿ÊÖ¶¯Ö¸¶¨Â·¾¶£¬
+	echo        »òÉèÖÃ»·¾³±äÁ¿ HBX_CLI_PATH Ö¸Ïò cli.exe¡£
 	echo.
 	pause
 	exit /b 1
@@ -38,122 +43,169 @@ if not defined HBX_CLI (
 :menu
 cls
 echo ============================================================
-echo   MeetingRoom ä¸€é”®ç¼–è¯‘ä¸Žå¯åŠ¨
+echo   MeetingRoom Ò»¼ü±àÒëÓëÆô¶¯
 echo ------------------------------------------------------------
-echo   é¡¹ç›®ç›®å½• : %PROJECT_DIR%
+echo   ÏîÄ¿Ä¿Â¼ : %PROJECT_DIR%
 echo   cli.exe  : %HBX_CLI%
-echo   æœåŠ¡ç«¯å£ : %PORT%
+echo   ·þÎñ¶Ë¿Ú : %PORT%
 echo ============================================================
-echo   [1] H5 å‘è¡Œç¼–è¯‘ + å¯åŠ¨æœ¬åœ°æœåŠ¡    æœåŠ¡å™¨éƒ¨ç½² / æµè§ˆå™¨è®¿é—®ï¼ˆæŽ¨èï¼‰
-echo   [2] å¾®ä¿¡å°ç¨‹åº å‘è¡Œç¼–è¯‘           äº§ç‰© build/mp-weixinï¼Œä¸Šä¼ ä½“éªŒç‰ˆç”¨
-echo   [3] å¾®ä¿¡å°ç¨‹åº å¼€å‘ç¼–è¯‘           äº§ç‰© dev/mp-weixinï¼Œå¼€å‘è€…å·¥å…·ç”¨
-echo   [4] H5 å¼€å‘æ¨¡å¼è¿è¡Œ               HBuilderX è‡ªå¸¦æœåŠ¡ï¼Œæ”¹ä»£ç çƒ­æ›´æ–°
-echo   [5] é€€å‡º
+echo   [1] H5 ·¢ÐÐ±àÒë + Æô¶¯±¾µØ·þÎñ    ·þÎñÆ÷²¿Êð / ä¯ÀÀÆ÷·ÃÎÊ£¨ÍÆ¼ö£©
+echo   [2] Î¢ÐÅÐ¡³ÌÐò ·¢ÐÐ±àÒë           ²úÎï build/mp-weixin£¬ÉÏ´«ÌåÑé°æÓÃ
+echo   [3] Î¢ÐÅÐ¡³ÌÐò ¿ª·¢±àÒë           ²úÎï dev/mp-weixin£¬¿ª·¢Õß¹¤¾ßÓÃ
+echo   [4] H5 ¿ª·¢Ä£Ê½ÔËÐÐ               HBuilderX ×Ô´ø·þÎñ£¬¸Ä´úÂëÈÈ¸üÐÂ
+echo   [5] Éú³É·ÃÎÊ¶þÎ¬Âë                Ö»Éú³É qrcode.png£¬²»Æô¶¯·þÎñ
+echo   [6] ÍË³ö
 echo ------------------------------------------------------------
 set "CHOICE="
-set /p "CHOICE=è¯·è¾“å…¥é€‰é¡¹ï¼ˆé»˜è®¤ 1ï¼‰: "
+set /p "CHOICE=ÇëÊäÈëÑ¡Ïî£¨Ä¬ÈÏ 1£©: "
 if not defined CHOICE set "CHOICE=1"
 if "%CHOICE%"=="1" goto h5_release
 if "%CHOICE%"=="2" goto mp_release
 if "%CHOICE%"=="3" goto mp_dev
 if "%CHOICE%"=="4" goto h5_dev
-if "%CHOICE%"=="5" exit /b 0
-echo è¾“å…¥æ— æ•ˆï¼Œè¯·é‡æ–°é€‰æ‹©...
+if "%CHOICE%"=="5" goto only_qr
+if "%CHOICE%"=="6" exit /b 0
+echo ÊäÈëÎÞÐ§£¬ÇëÖØÐÂÑ¡Ôñ...
 ping -n 2 127.0.0.1 >nul
 goto menu
 
-REM ========== 1. H5 å‘è¡Œç¼–è¯‘ + é™æ€æœåŠ¡ ==========
+REM ========== 1. H5 ·¢ÐÐ±àÒë + ¾²Ì¬·þÎñ ==========
 :h5_release
 echo.
-echo [1/2] æ­£åœ¨ç¼–è¯‘ H5 å‘è¡Œç‰ˆï¼Œè¯·ç¨å€™...
-call "%HBX_CLI%" publish --platform h5 --project "%PROJECT_DIR%"
+echo [1/3] ÕýÔÚ±àÒë H5 ·¢ÐÐ°æ£¬ÇëÉÔºò...
+call "%HBX_CLI%" publish --platform h5 --project "!PROJECT_DIR!"
 if errorlevel 1 (
 	echo.
-	echo [é”™è¯¯] H5 ç¼–è¯‘å¤±è´¥ï¼Œè¯·æŸ¥çœ‹ä¸Šæ–¹ HBuilderX æ—¥å¿—ã€‚
+	echo [´íÎó] H5 ±àÒëÊ§°Ü£¬Çë²é¿´ÉÏ·½ HBuilderX ÈÕÖ¾¡£
 	pause
 	goto menu
 )
-set "WEB_DIR=%PROJECT_DIR%\unpackage\dist\build\web"
-if not exist "%WEB_DIR%\index.html" (
+set "WEB_DIR=!PROJECT_DIR!\unpackage\dist\build\web"
+if not exist "!WEB_DIR!\index.html" (
 	echo.
-	echo [é”™è¯¯] æœªæ‰¾åˆ°ç¼–è¯‘äº§ç‰©ï¼š%WEB_DIR%
+	echo [´íÎó] Î´ÕÒµ½±àÒë²úÎï£º!WEB_DIR!
 	pause
 	goto menu
 )
-echo [2/2] ç¼–è¯‘å®Œæˆï¼š%WEB_DIR%
+echo [2/3] ±àÒëÍê³É£º!WEB_DIR!
+call :detect_host
+call :make_qr
+echo [3/3] ÕýÔÚÆô¶¯¾²Ì¬·þÎñ£¬°´ Ctrl+C ¿ÉÍ£Ö¹·þÎñ¡£
 echo.
-echo è®¿é—®åœ°å€ï¼š
-echo   æœ¬æœº      http://localhost:%PORT%
-for /f "tokens=2 delims=:" %%i in ('ipconfig ^| findstr /i "IPv4"') do (
-	set "IP=%%i"
-	set "IP=!IP: =!"
-	echo   å±€åŸŸç½‘    http://!IP!:%PORT%
-)
-echo.
-echo æ­£åœ¨å¯åŠ¨é™æ€æœåŠ¡ï¼ŒæŒ‰ Ctrl+C å¯åœæ­¢æœåŠ¡ã€‚
-start "" "http://localhost:%PORT%"
-call :serve "%WEB_DIR%"
+start "" "http://localhost:!PORT!"
+call :serve "!WEB_DIR!"
 goto end
 
-REM ========== 2. å¾®ä¿¡å°ç¨‹åº å‘è¡Œç¼–è¯‘ ==========
+REM ========== 2. Î¢ÐÅÐ¡³ÌÐò ·¢ÐÐ±àÒë ==========
 :mp_release
 echo.
-echo æ­£åœ¨ç¼–è¯‘å¾®ä¿¡å°ç¨‹åºå‘è¡Œç‰ˆï¼Œè¯·ç¨å€™...
-call "%HBX_CLI%" publish --platform mp-weixin --project "%PROJECT_DIR%"
+echo ÕýÔÚ±àÒëÎ¢ÐÅÐ¡³ÌÐò·¢ÐÐ°æ£¬ÇëÉÔºò...
+call "%HBX_CLI%" publish --platform mp-weixin --project "!PROJECT_DIR!"
 if errorlevel 1 (
 	echo.
-	echo [é”™è¯¯] ç¼–è¯‘å¤±è´¥ï¼Œè¯·æŸ¥çœ‹ä¸Šæ–¹ HBuilderX æ—¥å¿—ã€‚
+	echo [´íÎó] ±àÒëÊ§°Ü£¬Çë²é¿´ÉÏ·½ HBuilderX ÈÕÖ¾¡£
 	pause
 	goto menu
 )
 echo.
-echo ç¼–è¯‘å®Œæˆï¼Œäº§ç‰©ç›®å½•ï¼š
-echo   %PROJECT_DIR%\unpackage\dist\build\mp-weixin
+echo ±àÒëÍê³É£¬²úÎïÄ¿Â¼£º
+echo   !PROJECT_DIR!\unpackage\dist\build\mp-weixin
 echo.
-echo åŽç»­ï¼šç”¨å¾®ä¿¡å¼€å‘è€…å·¥å…·æ‰“å¼€è¯¥ç›®å½•ä¸Šä¼ ï¼Œæˆ–ç›´æŽ¥è¿è¡Œæœ¬è„šæœ¬å‰å…ˆç¼–è¯‘å†ä¸Šä¼ ã€‚
+echo ºóÐø£ºÓÃÎ¢ÐÅ¿ª·¢Õß¹¤¾ß´ò¿ª¸ÃÄ¿Â¼ÉÏ´«¡£
 pause
 goto menu
 
-REM ========== 3. å¾®ä¿¡å°ç¨‹åº å¼€å‘ç¼–è¯‘ ==========
+REM ========== 3. Î¢ÐÅÐ¡³ÌÐò ¿ª·¢±àÒë ==========
 :mp_dev
 echo.
-echo æ­£åœ¨ç¼–è¯‘å¾®ä¿¡å°ç¨‹åºå¼€å‘ç‰ˆï¼ˆä¸å¯åŠ¨å¼€å‘è€…å·¥å…·ï¼‰...
-call "%HBX_CLI%" launch mp-weixin --project "%PROJECT_DIR%" --compile true
+echo ÕýÔÚ±àÒëÎ¢ÐÅÐ¡³ÌÐò¿ª·¢°æ£¨²»Æô¶¯¿ª·¢Õß¹¤¾ß£©...
+call "%HBX_CLI%" launch mp-weixin --project "!PROJECT_DIR!" --compile true
 echo.
-echo ç¼–è¯‘å®Œæˆï¼Œäº§ç‰©ç›®å½•ï¼š
-echo   %PROJECT_DIR%\unpackage\dist\dev\mp-weixin
-echo å¯ç”¨å¾®ä¿¡å¼€å‘è€…å·¥å…·ç›´æŽ¥æ‰“å¼€è¯¥ç›®å½•é¢„è§ˆã€‚
+echo ±àÒëÍê³É£¬²úÎïÄ¿Â¼£º
+echo   !PROJECT_DIR!\unpackage\dist\dev\mp-weixin
+echo ¿ÉÓÃÎ¢ÐÅ¿ª·¢Õß¹¤¾ßÖ±½Ó´ò¿ª¸ÃÄ¿Â¼Ô¤ÀÀ¡£
 pause
 goto menu
 
-REM ========== 4. H5 å¼€å‘æ¨¡å¼è¿è¡Œ ==========
+REM ========== 4. H5 ¿ª·¢Ä£Ê½ÔËÐÐ ==========
 :h5_dev
 echo.
-echo æ­£åœ¨ä»¥å¼€å‘æ¨¡å¼è¿è¡Œ H5ï¼ˆHBuilderX å°†è‡ªåŠ¨æ‰“å¼€æµè§ˆå™¨ï¼ŒCtrl+C åœæ­¢ï¼‰...
-call "%HBX_CLI%" launch h5 --project "%PROJECT_DIR%"
+echo ÕýÔÚÒÔ¿ª·¢Ä£Ê½ÔËÐÐ H5£¨HBuilderX ½«×Ô¶¯´ò¿ªä¯ÀÀÆ÷£¬Ctrl+C Í£Ö¹£©...
+echo ×¢Òâ£º¿ª·¢Ä£Ê½¶Ë¿ÚÓÉ HBuilderX ·ÖÅä£¬²»ÊÜ±¾½Å±¾ PORT ÉèÖÃ¿ØÖÆ¡£
+call "%HBX_CLI%" launch h5 --project "!PROJECT_DIR!"
 pause
 goto menu
 
-REM ========== é™æ€æœåŠ¡ï¼ˆpython ä¼˜å…ˆï¼Œå…¶æ¬¡ node å†…ç½®æœåŠ¡ï¼‰==========
+REM ========== 5. Ö»Éú³É¶þÎ¬Âë ==========
+:only_qr
+echo.
+call :detect_host
+call :make_qr
+pause
+goto menu
+
+REM ========== Ì½²â·ÃÎÊÖ÷»ú£¨¾ÖÓòÍø IP / ¹«ÍøÓòÃû£©==========
+:detect_host
+set "LAN_IP="
+for /f "tokens=2 delims=:" %%i in ('ipconfig ^| findstr /i "IPv4"') do (
+	set "TMP_IP=%%i"
+	set "TMP_IP=!TMP_IP: =!"
+	if not defined LAN_IP set "LAN_IP=!TMP_IP!"
+)
+if defined PUBLIC_HOST set "LAN_IP=!PUBLIC_HOST!"
+set "ACCESS_URL=http://!LAN_IP!:!PORT!"
+exit /b 0
+
+REM ========== Éú³É¶þÎ¬Âë²¢´òÓ¡·ÃÎÊµØÖ· ==========
+:make_qr
+echo.
+echo ·ÃÎÊµØÖ·£º
+echo   ±¾»ú      http://localhost:!PORT!
+if not defined LAN_IP (
+	echo   ¾ÖÓòÍø    [Î´Ì½²âµ½ÍøÂçµØÖ·]
+	echo             ¿ÉÊÖ¶¯Éú³É£ºnode qrcode.js "http://ÄãµÄIP:!PORT!"
+	exit /b 0
+)
+echo   ¾ÖÓòÍø    http://!LAN_IP!:!PORT!
+echo   ÊÖ»úÉ¨Âë  http://!LAN_IP!:!PORT!         ^(ÊÖ»úÐèÓë·þÎñÆ÷Í¬Ò»¾ÖÓòÍø/WiFi^)
+echo   ÍøÒ³¿´Âë  http://!LAN_IP!:!PORT!/__qr    ^(Æô¶¯·þÎñºó¿ÉÔÚÈÎÒâÉè±¸´ò¿ª^)
+echo.
+where node >nul 2>nul
+if errorlevel 1 (
+	echo [ÌáÊ¾] Î´¼ì²âµ½ node£¬Ìø¹ý¶þÎ¬ÂëÉú³É¡£
+	echo        ¿É°²×° Node.js ºóÖØÊÔ£¬»òÈÃÊÖ»úä¯ÀÀÆ÷ÊÖ¶¯ÊäÈëÉÏÃæµÄµØÖ·¡£
+	exit /b 0
+)
+echo ÕýÔÚÉú³É·ÃÎÊ¶þÎ¬Âë...
+node "!PROJECT_DIR!\qrcode.js" "!ACCESS_URL!" "!PROJECT_DIR!\qrcode.png" --scale 8 --quiet
+if exist "!PROJECT_DIR!\qrcode.png" (
+	echo.
+	echo ¶þÎ¬ÂëÍ¼Æ¬£º!PROJECT_DIR!\qrcode.png
+	echo ÓÃÊÖ»úÉ¨Ãè¸ÃÍ¼Æ¬¼´¿É´ò¿ªÉÏÃæµÄµØÖ·¡£
+	start "" "!PROJECT_DIR!\qrcode.png" 2>nul
+)
+exit /b 0
+
+REM ========== ¾²Ì¬·þÎñ£¨node ÓÅÏÈ£º´ø /__qr ¶þÎ¬ÂëÒ³£»python ¶µµ×£©==========
 :serve
+where node >nul 2>nul
+if not errorlevel 1 (
+	node "!PROJECT_DIR!\server.js" %1 !PORT!
+	goto :eof
+)
 where python >nul 2>nul
 if not errorlevel 1 (
-	python -m http.server %PORT% --directory %1
+	python -m http.server !PORT! --directory %1
 	goto :eof
 )
 where py >nul 2>nul
 if not errorlevel 1 (
-	py -m http.server %PORT% --directory %1
-	goto :eof
-)
-where node >nul 2>nul
-if not errorlevel 1 (
-	node "%PROJECT_DIR%\server.js" %1 %PORT%
+	py -m http.server !PORT! --directory %1
 	goto :eof
 )
 echo.
-echo [æç¤º] æœªæ£€æµ‹åˆ° python / nodeï¼Œæ— æ³•è‡ªåŠ¨å¯åŠ¨é™æ€æœåŠ¡ã€‚
-echo        è¯·ç”¨ Nginx æˆ–å…¶å®ƒé™æ€æœåŠ¡å™¨æ‰˜ç®¡ç›®å½•ï¼š
+echo [ÌáÊ¾] Î´¼ì²âµ½ node / python£¬ÎÞ·¨×Ô¶¯Æô¶¯¾²Ì¬·þÎñ¡£
+echo        ÇëÓÃ Nginx »òÆäËü¾²Ì¬·þÎñÆ÷ÍÐ¹ÜÄ¿Â¼£º
 echo        %1
 echo.
 pause
@@ -161,6 +213,6 @@ goto :eof
 
 :end
 echo.
-echo æœåŠ¡å·²åœæ­¢ã€‚
+echo ·þÎñÒÑÍ£Ö¹¡£
 pause
 exit /b 0

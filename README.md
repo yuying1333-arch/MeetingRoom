@@ -22,7 +22,9 @@
 ├─ pages.json             页面路由与分包配置
 ├─ manifest.json          应用配置（appid、按需注入等）
 ├─ build&run.bat          一键编译与启动脚本
-└─ server.js              极简静态服务器（H5 预览兜底用）
+├─ make-qrcode.bat        单独生成访问二维码（只需 Node.js）
+├─ server.js              极简静态服务器（H5 预览兜底用，含 /__qr 二维码页）
+└─ qrcode.js              零依赖二维码生成器（Node，无第三方包）
 ```
 
 ## 一键编译与启动
@@ -42,13 +44,35 @@
 | 2 | 微信小程序 **发行**编译（上传体验版 / 正式版用） | `unpackage/dist/build/mp-weixin` |
 | 3 | 微信小程序 **开发**编译（微信开发者工具预览用） | `unpackage/dist/dev/mp-weixin` |
 | 4 | H5 开发模式运行（热更新） | 由 HBuilderX 内置服务托管 |
+| 5 | 只生成访问二维码（不启动服务） | `qrcode.png` |
 
 > 部署到公网服务器时，用 Nginx 托管 `unpackage/dist/build/web` 即可（也可使用 uniCloud 前端网页托管）；
-> 默认静态服务端口为 8080，可在脚本顶部 `set "PORT=8080"` 修改。
+> 默认静态服务端口为 **8901**，可在脚本顶部 `set "PORT=8901"` 修改。
 >
 > ⚠️ **H5 端调用 uniCloud 需要先在 [uniCloud 控制台](https://unicloud.dcloud.net.cn) 为本服务空间绑定「安全域名」**，
-> 否则浏览器会因跨域无法访问云对象（小程序端不受此限制）。参考：
+> 注意要带上端口号（如 `192.168.1.10:8901`），否则浏览器会因跨域无法访问云对象（小程序端不受此限制）。参考：
 > <https://uniapp.dcloud.net.cn/uniCloud/publish.html#useinh5>
+
+## 手机扫码访问（二维码）
+
+服务器启动后会同时输出访问地址和二维码，三种取码方式任选：
+
+| 方式 | 说明 |
+| --- | --- |
+| 脚本自动生成 | 运行 `build&run.bat` 选项 1/5 后生成 `qrcode.png` 并自动打开 |
+| 独立脚本 | 双击 `make-qrcode.bat`，回车用本机局域网 IP，或手动输入公网地址 |
+| 网页查看 | 服务启动后，任意设备访问 `http://<IP>:8901/__qr` 即可看到二维码 |
+
+> 二维码内容默认取**本机局域网 IP + 端口**，手机需与服务器处于同一局域网 / WiFi 才能打开。
+> 若服务器有公网 IP 或域名，编辑 `build&run.bat` 顶部的 `set "PUBLIC_HOST=你的域名或IP"`，
+> 二维码就会指向该地址（更推荐：外部访问用域名，再配 Nginx 反代到 8901）。
+>
+> 命令行直接生成（无需任何依赖）：
+> ```bash
+> node qrcode.js "http://192.168.1.10:8901" qrcode.png          # 生成图片
+> node qrcode.js "http://192.168.1.10:8901" qr.png --scale 12   # 指定清晰度
+> node qrcode.js "http://192.168.1.10:8901" --no-ascii          # 同时在终端打印二维码
+> ```
 
 ## 部署须知（微信小程序）
 
